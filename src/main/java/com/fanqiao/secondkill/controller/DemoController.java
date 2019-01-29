@@ -1,13 +1,26 @@
 package com.fanqiao.secondkill.controller;
 
+import com.fanqiao.secondkill.entity.Demo;
 import com.fanqiao.secondkill.result.Result;
+import com.fanqiao.secondkill.service.DemoService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/demo")
+@Log4j2
+@Api("DemoController相关的api")
 public class DemoController {
+
+    @Autowired
+    private DemoService demoService;
 
     @RequestMapping("/")
     @ResponseBody
@@ -19,5 +32,15 @@ public class DemoController {
     public String page(Model model) {
         model.addAttribute("name", "fq");
         return "page";
+    }
+
+
+    @ApiOperation(value = "获取Demo信息")
+    @GetMapping("/selectDemo")
+    @ResponseBody  //加上ResponseBody返回值就作为实体数据返回，不作为template返回
+    public Result<Demo> selectDemo() {
+        Demo demo = demoService.selectDemo(1L);
+        log.info("demo: {}", demo.toString());
+        return new Result(demo);
     }
 }

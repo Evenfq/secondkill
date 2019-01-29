@@ -17,6 +17,12 @@ public class Result<T> {
         this.data = data;
     }
 
+    public Result(T data) {
+        this.code = SUCCESS.getCode();
+        this.message = SUCCESS.getMessage();
+        this.data = data;
+    }
+
     public static <T> Result<T> success(T data) {
         return new Result<T>(SUCCESS.getCode(), SUCCESS.getMessage(), data);
     }
