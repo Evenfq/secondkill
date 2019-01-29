@@ -35,7 +35,6 @@ public class DemoController {
         return "page";
     }
 
-
     @ApiOperation(value = "获取Demo信息")
     @GetMapping("/selectDemo")
     @ResponseBody  //加上ResponseBody返回值就作为实体数据返回，不作为template返回
