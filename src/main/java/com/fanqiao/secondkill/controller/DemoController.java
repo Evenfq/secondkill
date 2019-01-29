@@ -12,11 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/demo")
 @Log4j2
-@Api("DemoController相关的api")
+@Api(description = "DemoController相关的api")
 public class DemoController {
 
     @Autowired
