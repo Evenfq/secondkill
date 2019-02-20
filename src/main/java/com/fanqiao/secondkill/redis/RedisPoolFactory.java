@@ -25,11 +25,4 @@ public class RedisPoolFactory {
         JedisPool jedisPool = new JedisPool(jedisPoolConfig, redisConfig.getHost());
         return jedisPool;
     }
-
-    public void returnToPool(Jedis jedis) {
-        if(jedis != null) {
-            jedis.close();
-        }
-    }
-
 }
