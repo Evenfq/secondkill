@@ -23,7 +23,7 @@ import java.util.UUID;
 @Log4j2
 public class LoginService {
 
-    private static final String COOKIE_NAME = "cookie_name";
+    public static final String COOKIE_NAME = "cookie_name";
 
     @Autowired
     private SecondkillUserDao secondkillUserDao;
@@ -44,6 +44,7 @@ public class LoginService {
             String token = UUID.randomUUID().toString();
             redisService.set(UserKey.getByToken, token, rst);
             Cookie cookie = new Cookie(COOKIE_NAME, token);
+            log.info("doLogin: token {}", token);
             cookie.setMaxAge(UserKey.getByToken.getExpiredSeconds());
             cookie.setPath("/");
             response.addCookie(cookie);

@@ -3,10 +3,12 @@ package com.fanqiao.secondkill.redis;
 
 public class UserKey extends BasePrefix {
 
-    private UserKey(String prefix) {
-        super(prefix);
+    private static int seconds = 3600;
+
+    private UserKey(int seconds, String prefix) {
+        super(seconds, prefix);
     }
 
-    public static UserKey getById = new UserKey("id");
-    public static UserKey getByToken = new UserKey("token");
+    public static UserKey getById = new UserKey(seconds, "id");
+    public static UserKey getByToken = new UserKey(seconds, "token");
 }
