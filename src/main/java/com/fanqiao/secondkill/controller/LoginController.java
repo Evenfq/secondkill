@@ -45,11 +45,9 @@ public class LoginController {
     @PostMapping("/doLogin")
     @ResponseBody
     public Result doLogin(@Valid LoginVo loginVo) {
-
         log.info("loginVo: {}", loginVo.toString());
-        CodeMessage codeMessage = loginService.doLogin(loginVo);
-
-        return Result.message(codeMessage);
+        loginService.doLogin(loginVo);
+        return Result.success(true);
 
     }
 }

@@ -1,20 +1,18 @@
 package com.fanqiao.secondkill.exception;
 
 
+import com.fanqiao.secondkill.result.CodeMessage;
+import lombok.Data;
 
-public class GlobalException extends RuntimeException{
+@Data
+public class GlobalException extends RuntimeException {
 
-	/*private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
-	private CodeMsg cm;
+	private CodeMessage cm;
 	
-	public GlobalException(CodeMsg cm) {
+	public GlobalException(CodeMessage cm) {
 		super(cm.toString());
 		this.cm = cm;
 	}
-
-	public CodeMsg getCm() {
-		return cm;
-	}*/
-
 }
