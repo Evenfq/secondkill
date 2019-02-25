@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import com.fanqiao.secondkill.result.Result ;
 import com.fanqiao.secondkill.result.CodeMessage;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
@@ -44,9 +45,9 @@ public class LoginController {
     @ApiOperation(value = "登录接口")
     @PostMapping("/doLogin")
     @ResponseBody
-    public Result doLogin(@Valid LoginVo loginVo) {
+    public Result doLogin(HttpServletResponse response, @Valid LoginVo loginVo) {
         log.info("loginVo: {}", loginVo.toString());
-        loginService.doLogin(loginVo);
+        loginService.doLogin(response, loginVo);
         return Result.success(true);
     }
 }
