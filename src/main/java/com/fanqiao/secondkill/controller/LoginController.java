@@ -48,6 +48,5 @@ public class LoginController {
         log.info("loginVo: {}", loginVo.toString());
         loginService.doLogin(loginVo);
         return Result.success(true);
-
     }
 }
