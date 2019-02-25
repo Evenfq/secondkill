@@ -9,13 +9,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller //如果要返回页面使用@Controller  @RestController 则Controller中的方法无法返回jsp页面，或者html
 @RequestMapping("/demo")
 @Log4j2
 @Api(description = "DemoController相关的api")
@@ -46,6 +47,12 @@ public class DemoController {
         log.info("demo: {}", demo.toString());
         return new Result(demo);
     }*/
+
+    @RequestMapping("/page")  //返回页面只能使用RequestMapping
+    public String page(Model model) {
+        model.addAttribute("name", "fq");
+        return "page";
+    }
 
     @ApiOperation(value = "获取redis给定的值")
     @GetMapping("/redis/get")

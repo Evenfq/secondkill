@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fanqiao.secondkill.dao.SecondkillUserDao" >
+  <resultMap id="BaseResultMap" type="com.fanqiao.secondkill.entity.SecondkillUser" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="regist_date" property="registDate" jdbcType="TIMESTAMP" />
+    <result column="last_login_date" property="lastLoginDate" jdbcType="TIMESTAMP" />
+    <result column="login_count" property="loginCount" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="selectSecondkillUser" parameterType="com.fanqiao.secondkill.entity.SecondkillUser" resultMap="BaseResultMap">
+    select * from secondkill_user
+    <where> 1 = 1
+      <if test="mobile != null">
+        and mobile = #{mobile}
+      </if>
+    </where>
+  </select>
+
+</mapper>

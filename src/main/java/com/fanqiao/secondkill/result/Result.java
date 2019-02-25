@@ -1,8 +1,6 @@
 package com.fanqiao.secondkill.result;
 
 import lombok.Data;
-
-import static com.fanqiao.secondkill.result.CodeMessage.ERROR;
 import static com.fanqiao.secondkill.result.CodeMessage.SUCCESS;
 
 @Data
@@ -29,5 +27,15 @@ public class Result<T> {
 
     public static <T> Result<T> error(CodeMessage codeMessage) {
         return new Result<T>(codeMessage.getCode(), codeMessage.getMessage(), null);
+    }
+
+    public static <T> Result<T> message(CodeMessage codeMessage) {
+        return new Result<T>(codeMessage.getCode(), codeMessage.getMessage(), null);
+    }
+
+    public static <T> Result<T>  fillArgs(CodeMessage codeMessage, Object... args) {
+        String code = codeMessage.getCode();
+        String message = String.format(codeMessage.getMessage(), args);
+        return new Result<T>(code, message, null);
     }
 }
