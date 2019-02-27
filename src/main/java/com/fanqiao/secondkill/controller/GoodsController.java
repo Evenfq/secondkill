@@ -14,16 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 @RequestMapping("/goods")
 @Log4j2
 public class GoodsController {
 
 	@Autowired
-	RedisService redisService;
+	private RedisService redisService;
+	@Autowired
+	private LoginService loginService;
 	
     @RequestMapping("/to_list")
-    public String list(Model model, @CookieValue(value = LoginService.COOKIE_NAME, required = false) String cookieName,
+    public String list(HttpServletResponse response, Model model, @CookieValue(value = LoginService.COOKIE_NAME, required = false) String cookieName,
 					   @RequestParam(value = LoginService.COOKIE_NAME, required = false) String paramName) {
     	if(StringUtils.isEmpty(cookieName) && StringUtils.isEmpty(paramName)) {
     		return "login";
@@ -31,16 +35,8 @@ public class GoodsController {
 		log.info("cookieName {}", cookieName);
 		log.info("paramName {}", paramName);
 		String token = StringUtils.isEmpty(cookieName)?paramName:cookieName;
-		SecondkillUser secondkillUser = getByToken(token);
+		SecondkillUser secondkillUser = loginService.getByToken(response, token);
     	model.addAttribute("user", secondkillUser);
         return "goods_list";
     }
-
-    public SecondkillUser getByToken(String token) {
-    	if(StringUtils.isEmpty(token)) {
-    		return null;
-		}
-		return redisService.get(UserKey.getByToken, token, SecondkillUser.class);
-	}
-    
 }

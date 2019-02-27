@@ -14,6 +14,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -41,17 +42,32 @@ public class LoginService {
         String passwordDB = MD5Util.formPasswordToDatabasePassword(loginVo.getPassword(), rst.getSalt());
         log.info("passwordDB {}", passwordDB);
         if(passwordDB != null && passwordDB.equals(rst.getPassword())) {
-            String token = UUID.randomUUID().toString();
-            redisService.set(UserKey.getByToken, token, rst);
-            Cookie cookie = new Cookie(COOKIE_NAME, token);
-            log.info("doLogin: token {}", token);
-            cookie.setMaxAge(UserKey.getByToken.getExpiredSeconds());
-            cookie.setPath("/");
-            response.addCookie(cookie);
+            addCookie(response, rst);
             return true;
         } else {
             throw new GlobalException(CodeMessage.LOGIN_ERROR);
         }
     }
 
+    public SecondkillUser getByToken(HttpServletResponse response, String token) {
+        if(StringUtils.isEmpty(token)) {
+            return null;
+        }
+        SecondkillUser secondkillUser = redisService.get(UserKey.getByToken, token, SecondkillUser.class);
+        //延长缓存期
+        if(secondkillUser != null) {
+            addCookie(response, secondkillUser);
+        }
+        return secondkillUser;
+    }
+
+    private void addCookie(HttpServletResponse response, SecondkillUser secondkillUser) {
+        String token = UUID.randomUUID().toString();
+        redisService.set(UserKey.getByToken, token, secondkillUser);
+        Cookie cookie = new Cookie(COOKIE_NAME, token);
+        log.info("doLogin: token {}", token);
+        cookie.setMaxAge(UserKey.getByToken.getExpiredSeconds());
+        cookie.setPath("/");
+        response.addCookie(cookie);
+    }
 }
