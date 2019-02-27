@@ -27,15 +27,18 @@ public class GoodsController {
 	private LoginService loginService;
 	
     @RequestMapping("/to_list")
-    public String list(HttpServletResponse response, Model model, @CookieValue(value = LoginService.COOKIE_NAME, required = false) String cookieName,
-					   @RequestParam(value = LoginService.COOKIE_NAME, required = false) String paramName) {
-    	if(StringUtils.isEmpty(cookieName) && StringUtils.isEmpty(paramName)) {
+    public String list(Model model,
+					   //@CookieValue(value = LoginService.COOKIE_NAME, required = false) String cookieName,
+					   //@RequestParam(value = LoginService.COOKIE_NAME, required = false) String paramName
+					   SecondkillUser secondkillUser
+	) {
+    	/*if(StringUtils.isEmpty(cookieName) && StringUtils.isEmpty(paramName)) {
     		return "login";
 		}
 		log.info("cookieName {}", cookieName);
 		log.info("paramName {}", paramName);
 		String token = StringUtils.isEmpty(cookieName)?paramName:cookieName;
-		SecondkillUser secondkillUser = loginService.getByToken(response, token);
+		SecondkillUser secondkillUser = loginService.getByToken(response, token);*/
     	model.addAttribute("user", secondkillUser);
         return "goods_list";
     }
