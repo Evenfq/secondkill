@@ -4,17 +4,20 @@ package com.fanqiao.secondkill.controller;
 import com.fanqiao.secondkill.entity.SecondkillUser;
 import com.fanqiao.secondkill.redis.RedisService;
 import com.fanqiao.secondkill.redis.UserKey;
+import com.fanqiao.secondkill.service.GoodsService;
 import com.fanqiao.secondkill.service.LoginService;
+import com.fanqiao.secondkill.vo.GoodsVo;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @RequestMapping("/goods")
@@ -25,21 +28,18 @@ public class GoodsController {
 	private RedisService redisService;
 	@Autowired
 	private LoginService loginService;
-	
-    @RequestMapping("/to_list")
-    public String list(Model model,
-					   //@CookieValue(value = LoginService.COOKIE_NAME, required = false) String cookieName,
-					   //@RequestParam(value = LoginService.COOKIE_NAME, required = false) String paramName
-					   SecondkillUser secondkillUser
-	) {
-    	/*if(StringUtils.isEmpty(cookieName) && StringUtils.isEmpty(paramName)) {
-    		return "login";
-		}
-		log.info("cookieName {}", cookieName);
-		log.info("paramName {}", paramName);
-		String token = StringUtils.isEmpty(cookieName)?paramName:cookieName;
-		SecondkillUser secondkillUser = loginService.getByToken(response, token);*/
+	@Autowired
+	GoodsService goodsService;
+
+	@RequestMapping("/to_list")
+    public String list(Model model, SecondkillUser secondkillUser) {
     	model.addAttribute("user", secondkillUser);
+		List<GoodsVo> goodsList = goodsService.listGoodsVo();
+		model.addAttribute("goodsList", goodsList);
         return "goods_list";
     }
+
+
+
+
 }
