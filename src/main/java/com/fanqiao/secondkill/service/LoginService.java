@@ -42,7 +42,8 @@ public class LoginService {
         String passwordDB = MD5Util.formPasswordToDatabasePassword(loginVo.getPassword(), rst.getSalt());
         log.info("passwordDB {}", passwordDB);
         if(passwordDB != null && passwordDB.equals(rst.getPassword())) {
-            addCookie(response, rst);
+            String token = UUID.randomUUID().toString();
+            addCookie(response, rst, token);
             return true;
         } else {
             throw new GlobalException(CodeMessage.LOGIN_ERROR);
@@ -56,13 +57,12 @@ public class LoginService {
         SecondkillUser secondkillUser = redisService.get(UserKey.getByToken, token, SecondkillUser.class);
         //延长缓存期
         if(secondkillUser != null) {
-            addCookie(response, secondkillUser);
+            addCookie(response, secondkillUser, token);
         }
         return secondkillUser;
     }
 
-    private void addCookie(HttpServletResponse response, SecondkillUser secondkillUser) {
-        String token = UUID.randomUUID().toString();
+    private void addCookie(HttpServletResponse response, SecondkillUser secondkillUser, String token) {
         redisService.set(UserKey.getByToken, token, secondkillUser);
         Cookie cookie = new Cookie(COOKIE_NAME, token);
         log.info("doLogin: token {}", token);
