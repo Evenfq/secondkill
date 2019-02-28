@@ -2,7 +2,7 @@
 SQLyog Ultimate v12.09 (64 bit)
 MySQL - 5.5.61 : Database - secondkill
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -29,6 +29,74 @@ CREATE TABLE `demo` (
 /*Data for the table `demo` */
 
 insert  into `demo`(`id`,`name`) values (1,'fanqiao');
+
+/*Table structure for table `goods` */
+
+DROP TABLE IF EXISTS `goods`;
+
+CREATE TABLE `goods` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `goods_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `goods_title` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `goods_img` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `goods_detail` longtext COLLATE utf8_unicode_ci,
+  `goods_price` decimal(10,2) DEFAULT NULL,
+  `goods_stock` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `goods` */
+
+/*Table structure for table `order_info` */
+
+DROP TABLE IF EXISTS `order_info`;
+
+CREATE TABLE `order_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) DEFAULT NULL,
+  `goods_id` bigint(20) DEFAULT NULL,
+  `delivery_addr_id` bigint(20) DEFAULT NULL,
+  `goods_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `goods_count` int(11) DEFAULT NULL,
+  `goods_price` decimal(10,2) DEFAULT NULL,
+  `order_channel` tinyint(4) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL COMMENT '0 未支付 1 已支付 2 已发货 3 已收货 4 已退款 5 已完成',
+  `create_date` datetime DEFAULT NULL,
+  `pay_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `order_info` */
+
+/*Table structure for table `secondkill_goods` */
+
+DROP TABLE IF EXISTS `secondkill_goods`;
+
+CREATE TABLE `secondkill_goods` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `goods_id` bigint(20) DEFAULT NULL,
+  `secondkill_price` decimal(10,2) DEFAULT NULL,
+  `stock_count` int(11) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `secondkill_goods` */
+
+/*Table structure for table `secondkill_order` */
+
+DROP TABLE IF EXISTS `secondkill_order`;
+
+CREATE TABLE `secondkill_order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) DEFAULT NULL,
+  `order_id` bigint(20) DEFAULT NULL,
+  `goods_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `secondkill_order` */
 
 /*Table structure for table `secondkill_user` */
 
