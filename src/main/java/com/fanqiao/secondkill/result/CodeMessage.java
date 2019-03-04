@@ -8,11 +8,16 @@ public enum CodeMessage {
     SERVER_ERROR("500777", "服务端异常"),
     ERROR("500999", "请求失败"),
 
-
+    //登录模块
     PARAM_EMPTY_ERROR("6000001", "参数不能为空"),
     MOBILE_NUMBER_ERROR("6000002", "手机号格式不正确"),
     LOGIN_ERROR("6000002", "账号或密码错误"),
     BIND_ERROR("6000003", "参数校验异常：%s"),
+
+    //秒杀模块
+    REPERTORY_EMPTY("7000001", "没有库存"),
+    SECONDKILL_REPEAT("7000002", "重复秒杀"),
+
     ;
     private String code;
     private String message;

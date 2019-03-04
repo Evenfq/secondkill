@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.fanqiao.secondkill.dao.OrderInfoDao" >
-  <resultMap id="BaseResultMap" type="com.fanqiao.secondkill.dao.OrderInfo" >
+  <resultMap id="BaseResultMap" type="com.fanqiao.secondkill.entity.OrderInfo" >
     <!--
       WARNING - @mbg.generated
     -->

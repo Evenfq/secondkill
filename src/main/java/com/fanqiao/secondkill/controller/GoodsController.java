@@ -25,10 +25,6 @@ import java.util.List;
 public class GoodsController {
 
 	@Autowired
-	private RedisService redisService;
-	@Autowired
-	private LoginService loginService;
-	@Autowired
 	GoodsService goodsService;
 
 	@RequestMapping("/to_list")
