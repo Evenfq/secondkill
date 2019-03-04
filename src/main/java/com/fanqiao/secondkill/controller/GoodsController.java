@@ -29,7 +29,9 @@ public class GoodsController {
 
 	@RequestMapping("/to_list")
     public String list(Model model, SecondkillUser secondkillUser) {
-		log.info("list 入参 secondkillUser {}", secondkillUser.toString());
+		if(secondkillUser != null) {
+			log.info("list 入参 secondkillUser {}", secondkillUser.toString());
+		}
     	model.addAttribute("user", secondkillUser);
 		List<GoodsVo> goodsList = goodsService.listGoodsVo();
 		model.addAttribute("goodsList", goodsList);
