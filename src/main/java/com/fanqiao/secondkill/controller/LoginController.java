@@ -45,9 +45,9 @@ public class LoginController {
     @ApiOperation(value = "登录接口")
     @PostMapping("/doLogin")
     @ResponseBody
-    public Result doLogin(HttpServletResponse response, @Valid LoginVo loginVo) {
+    public Result<String> doLogin(HttpServletResponse response, @Valid LoginVo loginVo) {
         log.info("loginVo: {}", loginVo.toString());
-        loginService.doLogin(response, loginVo);
-        return Result.success(true);
+        String token = loginService.doLogin(response, loginVo);
+        return Result.success(token);
     }
 }

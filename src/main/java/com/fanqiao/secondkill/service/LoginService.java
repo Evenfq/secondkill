@@ -31,8 +31,11 @@ public class LoginService {
     @Autowired
     private RedisService redisService;
 
-    public boolean doLogin(HttpServletResponse response, LoginVo loginVo) {
+    public String doLogin(HttpServletResponse response, LoginVo loginVo) {
 
+        if(loginVo != null) {
+            log.info("loginVo {}", loginVo.toString());
+        }
         SecondkillUser secondkillUser = new SecondkillUser();
         secondkillUser.setMobile(loginVo.getMobile());
         SecondkillUser rst = secondkillUserDao.selectSecondkillUser(secondkillUser);
@@ -44,7 +47,7 @@ public class LoginService {
         if(passwordDB != null && passwordDB.equals(rst.getPassword())) {
             String token = UUID.randomUUID().toString();
             addCookie(response, rst, token);
-            return true;
+            return token;
         } else {
             throw new GlobalException(CodeMessage.LOGIN_ERROR);
         }
