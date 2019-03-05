@@ -65,7 +65,7 @@ public class LoginService {
     private void addCookie(HttpServletResponse response, SecondkillUser secondkillUser, String token) {
         redisService.set(UserKey.getByToken, token, secondkillUser);
         Cookie cookie = new Cookie(COOKIE_NAME, token);
-        log.info("doLogin: token {}", token);
+        log.info("addCookie: token {}", token);
         cookie.setMaxAge(UserKey.getByToken.getExpiredSeconds());
         cookie.setPath("/");
         response.addCookie(cookie);
