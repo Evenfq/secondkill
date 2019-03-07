@@ -27,6 +27,7 @@ public class UserUtil {
 			Long mobileValue = 13125000000L + i;
 			user.setMobile(mobileValue + "");
 			user.setLoginCount(1);
+			user.setRegistDate(new Date());
 			user.setNickname("user" + i);
 			user.setRegistDate(new Date());
 			user.setSalt("54fafdas6");
@@ -35,7 +36,7 @@ public class UserUtil {
 		}
 		System.out.println("create user");
 		//插入数据库
-		Connection conn = DBUtil.getConn();
+		/*Connection conn = DBUtil.getConn();
 		String sql = "insert into secondkill_user(login_count, nickname, regist_date, salt, password, mobile, id)values(?,?,?,?,?,?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		for (int i = 0; i < users.size(); i++) {
@@ -52,7 +53,7 @@ public class UserUtil {
 		pstmt.executeBatch();
 		pstmt.close();
 		conn.close();
-		System.out.println("insert to db");
+		System.out.println("insert to db");*/
 
 
 
@@ -90,7 +91,8 @@ public class UserUtil {
 			JSONObject jo = JSON.parseObject(response);
 			String token = jo.getString("data");
 			System.out.println("create token : " + user.getId());
-			
+
+
 			String row = user.getId()+","+token;
 			raf.seek(raf.length());
 			raf.write(row.getBytes());

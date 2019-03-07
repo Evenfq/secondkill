@@ -42,12 +42,14 @@ public class SecondkillController {
         int stock = goods.getStockCount();
         if(stock <= 0) {
             model.addAttribute("errmsg", CodeMessage.REPERTORY_EMPTY);
+            log.info("库存为0");
             return "secondkill_fail";
         }
         //判断是否已经秒杀到了
         SecondkillOrder order = orderService.getSecondkillOrderByUserIdGoodsId(user.getId(), goodsId);
         if(order != null) {
             model.addAttribute("errmsg", CodeMessage.SECONDKILL_REPEAT.getMessage());
+            log.info("重复秒杀了");
             return "secondkill_fail";
         }
         //减库存 下订单 写入秒杀订单

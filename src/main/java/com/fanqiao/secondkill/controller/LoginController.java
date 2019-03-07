@@ -46,7 +46,7 @@ public class LoginController {
     @PostMapping("/doLogin")
     @ResponseBody
     public Result<String> doLogin(HttpServletResponse response, @Valid LoginVo loginVo) {
-        log.info("loginVo: {}", loginVo.toString());
+        log.info("doLogin 参数: {}", loginVo.toString());
         String token = loginService.doLogin(response, loginVo);
         return Result.success(token);
     }
