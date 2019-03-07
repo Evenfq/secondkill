@@ -26,6 +26,16 @@ import java.io.IOException;
 @Slf4j
 public class HttpClientUtils {
 
+    /*
+    *       // 1、参数组装
+            Map<String, String> paramMap = new HashMap<>();
+            paramMap.put("phone", mobilePhone);
+            String inParams = objectMapper.writeValueAsString(paramMap);
+            // 2、及贷通讯
+            String resp = HttpClientUtils.doPost(LoanConstant.GEEDAI_REGISTER_URL, net.sf.json.JSONObject.fromObject(requestParam));
+    */
+
+
     public static String doPost(String url, JSONObject json){
         // 创建httpclient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
