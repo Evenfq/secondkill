@@ -1,6 +1,6 @@
 package com.fanqiao.secondkill.util;
 
-import org.apache.commons.codec.cli.Digest;
+
 import org.springframework.util.DigestUtils;
 
 public class MD5Util {
