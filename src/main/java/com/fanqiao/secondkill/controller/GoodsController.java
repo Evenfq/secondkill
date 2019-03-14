@@ -4,7 +4,9 @@ package com.fanqiao.secondkill.controller;
 import com.fanqiao.secondkill.entity.SecondkillUser;
 import com.fanqiao.secondkill.redis.GoodsListPrefix;
 import com.fanqiao.secondkill.redis.RedisService;
+import com.fanqiao.secondkill.result.Result;
 import com.fanqiao.secondkill.service.GoodsService;
+import com.fanqiao.secondkill.vo.GoodsDetailVo;
 import com.fanqiao.secondkill.vo.GoodsVo;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -100,6 +102,7 @@ public class GoodsController {
 		model.addAttribute("miaoshaStatus", miaoshaStatus);
 		model.addAttribute("remainSeconds", remainSeconds);
 
+		//查询数据库，存入缓存
 		WebContext ctx =
 				new WebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap());
 		goodsDetailHtml = thymeleafViewResolver.getTemplateEngine().process("goods_detail", ctx);
@@ -108,5 +111,33 @@ public class GoodsController {
 		}
 
 		return goodsDetailHtml;
+	}
+
+	@RequestMapping(value="/detail/{goodsId}")
+	@ResponseBody
+	public Result<GoodsDetailVo> detail2(HttpServletRequest request, HttpServletResponse response, Model model, SecondkillUser user,
+										 @PathVariable("goodsId") long goodsId) {
+		GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+		long startAt = goods.getStartDate().getTime();
+		long endAt = goods.getEndDate().getTime();
+		long now = System.currentTimeMillis();
+		int miaoshaStatus = 0;
+		int remainSeconds = 0;
+		if (now < startAt) {//秒杀还没开始，倒计时
+			miaoshaStatus = 0;
+			remainSeconds = (int) ((startAt - now) / 1000);
+		} else if (now > endAt) {//秒杀已经结束
+			miaoshaStatus = 2;
+			remainSeconds = -1;
+		} else {//秒杀进行中
+			miaoshaStatus = 1;
+			remainSeconds = 0;
+		}
+		GoodsDetailVo vo = new GoodsDetailVo();
+		vo.setGoods(goods);
+		vo.setUser(user);
+		vo.setRemainSeconds(remainSeconds);
+		vo.setMiaoshaStatus(miaoshaStatus);
+		return Result.success(vo);
 	}
 }

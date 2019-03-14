@@ -67,7 +67,7 @@ function login(){
 }
 function doLogin(){
 	g_showLoading();
-	
+	console.log("登录");
 	var inputPass = $("#password").val();
 	var salt = g_passsword_salt;
 	var str = "" + salt.charAt(0) + inputPass + salt.charAt(3)
