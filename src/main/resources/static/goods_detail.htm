@@ -71,15 +71,18 @@
 
 function doMiaosha(){
 	$.ajax({
-		url:"/miaosha/do_miaosha",
+		url:"/secondkill/do_secondkill",
 		type:"POST",
 		data:{
 			goodsId:$("#goodsId").val(),
 		},
 		success:function(data){
-			if(data.code == 0){
+            console.log("data");
+			if(data.code == 500000){
+			    console.log("success1");
 				window.location.href="/order_detail.htm?orderId="+data.data.id;
 			}else{
+                console.log("success2");
 				layer.msg(data.msg);
 			}
 		},

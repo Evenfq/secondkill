@@ -41,5 +41,9 @@ public class OrderService {
 		orderInfoDao.insertSecondkillOrder(secondkillOrder);
 		return orderInfo;
 	}
-	
+
+	public OrderInfo getOrderById(long orderId) {
+		return orderInfoDao.getOrderById(orderId);
+	}
+
 }

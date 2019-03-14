@@ -14,10 +14,12 @@ public enum CodeMessage {
     LOGIN_ERROR("6000002", "账号或密码错误"),
     BIND_ERROR("6000003", "参数校验异常：%s"),
     SECOND_KILL_USER_NOT_EXIST("6000004", "用户不存在"),
+    USER_NOT_LOGIN("6000004", "用户未登录"),
 
     //秒杀模块
     REPERTORY_EMPTY("7000001", "没有库存"),
     SECONDKILL_REPEAT("7000002", "重复秒杀"),
+    ORDER_NOT_EXIST("7000003", "订单不存在"),
 
     ;
     private String code;

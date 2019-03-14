@@ -4,6 +4,7 @@ import com.fanqiao.secondkill.entity.OrderInfo;
 import com.fanqiao.secondkill.entity.SecondkillOrder;
 import com.fanqiao.secondkill.entity.SecondkillUser;
 import com.fanqiao.secondkill.result.CodeMessage;
+import com.fanqiao.secondkill.result.Result;
 import com.fanqiao.secondkill.service.GoodsService;
 import com.fanqiao.secondkill.service.OrderService;
 import com.fanqiao.secondkill.service.SecondkillService;
@@ -13,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/secondkill")
@@ -30,7 +29,8 @@ public class SecondkillController {
     @Autowired
     private SecondkillService secondkillService;
 
-    @RequestMapping("/do_secondkill")
+    /*
+    @PostMapping("/do_secondkill")
     public String doSecondkill(Model model,SecondkillUser user,
                        @RequestParam("goodsId")long goodsId) {
         model.addAttribute("user", user);
@@ -57,5 +57,30 @@ public class SecondkillController {
         model.addAttribute("orderInfo", orderInfo);
         model.addAttribute("goods", goods);
         return "order_detail";
+    }
+    */
+
+    @PostMapping("/do_secondkill")
+    @ResponseBody
+    public Result doSecondkill(Model model, SecondkillUser user,
+                               @RequestParam("goodsId")long goodsId) {
+        model.addAttribute("user", user);
+        if(user == null) {
+            return new Result(CodeMessage.USER_NOT_LOGIN.getMessage());
+        }
+        //判断库存
+        GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+        int stock = goods.getStockCount();
+        if(stock <= 0) {
+            return new Result(CodeMessage.REPERTORY_EMPTY.getMessage());
+        }
+        //判断是否已经秒杀到了
+        SecondkillOrder order = orderService.getSecondkillOrderByUserIdGoodsId(user.getId(), goodsId);
+        if(order != null) {
+            return new Result(CodeMessage.SECONDKILL_REPEAT.getMessage());
+        }
+        //减库存 下订单 写入秒杀订单
+        OrderInfo orderInfo = secondkillService.miaosha(user, goods);
+        return new Result(orderInfo);
     }
 }
