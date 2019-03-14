@@ -9,6 +9,6 @@ public class UserKey extends BasePrefix {
         super(seconds, prefix);
     }
 
-    public static UserKey getById = new UserKey(seconds, "id");
+    public static UserKey getById = new UserKey(0, "id");
     public static UserKey getByToken = new UserKey(seconds, "token");
 }

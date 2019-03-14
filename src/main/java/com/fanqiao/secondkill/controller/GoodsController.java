@@ -43,9 +43,6 @@ public class GoodsController {
 		if(secondkillUser != null) {
 			log.info("list 入参 secondkillUser {}", secondkillUser.toString());
 		}
-    	model.addAttribute("user", secondkillUser);
-		List<GoodsVo> goodsList = goodsService.listGoodsVo();
-		model.addAttribute("goodsList", goodsList);
 
 		//查询缓存
 		String goodsListHtml = redisService.get(GoodsListPrefix.getGoodsList, "", String.class);
@@ -54,7 +51,10 @@ public class GoodsController {
 			return goodsListHtml;
 		}
 
-		//手动渲染
+		//手动渲染 查数据库
+		model.addAttribute("user", secondkillUser);
+		List<GoodsVo> goodsList = goodsService.listGoodsVo();
+		model.addAttribute("goodsList", goodsList);
 		WebContext ctx =
 				new WebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap());
 		goodsListHtml = thymeleafViewResolver.getTemplateEngine().process("goods_list", ctx);

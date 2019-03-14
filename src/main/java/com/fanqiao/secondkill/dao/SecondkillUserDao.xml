@@ -21,7 +21,20 @@
       <if test="mobile != null">
         and mobile = #{mobile}
       </if>
+      <if test="id != null">
+        and id = #{id}
+      </if>
     </where>
   </select>
 
+
+  <update id="updateSecondkillUserSelective" parameterType="com.fanqiao.secondkill.entity.SecondkillUser" >
+    update secondkill_user
+    <set>
+      <if test="mobile != null">
+        and mobile = #{mobile}
+      </if>
+    </set>
+     where id = #{id}
+  </update>
 </mapper>

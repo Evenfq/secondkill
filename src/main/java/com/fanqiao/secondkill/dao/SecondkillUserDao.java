@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface SecondkillUserDao {
 
     SecondkillUser selectSecondkillUser(SecondkillUser secondkillUser);
+
+    void updateSecondkillUserSelective(SecondkillUser secondkillUser);
 }
