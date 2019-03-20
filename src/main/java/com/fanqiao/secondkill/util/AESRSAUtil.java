@@ -2,8 +2,7 @@ package com.fanqiao.secondkill.util;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xiaocaimi.admin.pojo.vo.EntryVo;
-import com.xiaocaimi.admin.pojo.vo.LoanApplyConditionVo;
+
 
 import javax.crypto.SecretKey;
 import java.security.PrivateKey;
@@ -29,7 +28,7 @@ public class AESRSAUtil {
             ="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDLv6m24L0HzIstZNiGqhjxwzabB49a8MePtqO6gz9IKWFz0KWL9fYCdDhKAlqbHDf3Al6Ef72PgOT4dmm5FiOV1O/ce6oZ19xatlcyX0SdsCZvrxt1ZxTEoqod5RjYBvJc9HENjmkZ56v0e8t6qjJyHSri6Qor2HOZ4XlcNh7qIS/XkYbB9Ra/cGqamxzI3eyh3wMH+Sbx8XTAePTXPI9W7BHDb87yC/oz5KXdFB6aS5U3WdrcQj2DsVu2xUjlzKzucLTy8qg+a5cg5xNFAoS1wG1KcxRYp/I4sLoB2WFNn3qf2fCBd0j3g2Aj1pQTYHWoWYNLKhzYi13o/lXk8AhNAgMBAAECggEBAL0q+vhXGkpWZ1XDDqGg5b35QAaZ80g8yxusN8FgP+3QtbEgo8MZnsnSe7yDCPqALZnBcl3Ud/v3cR8aWbhFTM68v+JWUqzh1K3II5caCovZUyZYTscm6IpUeFt/LBzN/lG9hgVPFle919IK6fW+dU2rtPit4wqoUVQqmlG50eQPNxOXDMq2u8bpo+VT3klEFE73eMbkVRfEFt7HFR/pKHtPTfHT/B9S7fR+V/LBgysiGG/Ctjeqf90obINyl3qPWGtfcaSS7OUKKM524wXH7sBot8bbajYlBioVYNfU7ej2aEdzc0BASwj/5lXJeDQGXhReEErBmhLvnp5Uv4SE6cECgYEA/+7UJJOvuB10pFdxyaMv941U/7h1CLV7/dR6qGYc75fiQgouLmWdkpnvoEIHDoofRaiW98kRWHBOjPpBXDZxwfmK0zf6GTNN3GvRGeo0yf4Haxalo1cbug+q09fGIN/GZOuDHbDhV/wINb46cA1r6MV3xuEo6u/IJvMJ9gHwUx0CgYEAy81VQ7Zw/z0OwixKq0fVJ3MT1f0Cz9MlU28eEXF9BhphD5B0Wr170PmZjcyFvYSYfXFbI9LFOWhjdgjz4E+NU0KmIyUdJb+FBL+hbA4HjDWCgb0+s3HpEG9JVFF9ajdYeuLCV3VyCQaTctbNoYQIQbubNOlCIXgZ+Yn6QchU0vECgYBosJEmxSLD9YiZEQwCpzYf1ThHwnRdM5+cnSXvbJW5jC+JRBDP+dES/tT+gQPR9r4ECIp4oU7vFkGLeXLy/XJbHnCjJeqwFERtPc0zBJLDbZ4rOABZaHB3E6GVNlZdbCwDbDMeGhSToQzarw3IeDUD6oKsX74VHDCLfi886l4cIQKBgBb5gs8rVfmwDGXfUFuWsXTNCENrTlHXX7HUKPOWc52og6CZjERecALS4HiXwcvnkrkxejDDpfAe0HeR8swqq6fjL49us6Z5vKkYYT4pJrirn5a4msTn5nov0Xhr51N+Ab94qKfrWXui/iRICs5WcAfY+lowoX/cZjE3WLrptoZBAoGACUDFaIa33aOot/tdCW/z6zESb6cotLTOWrwX3xXqgqgdFF/fKrKg3G0ovPf8qJkmc8qJit3mRzegvgbFV0TOkrVrwKJkt1HXSiZ60etco5DB6n+EEtwphahLVaXzgItdzG7/9mWN39EACrnCwsbzREr/UtigydxFOc49uDaDJUA=";
 
     //解密
-    public static LoanApplyConditionVo decryptStr(EntryVo req) {
+    /*public static LoanApplyConditionVo decryptStr(EntryVo req) {
         if (req == null){
             return null;
         }
@@ -57,13 +56,13 @@ public class AESRSAUtil {
     }
 
 
-    /**
+    *//**
      * 功能描述: 数据加密
      *
      * @Author:xiaojian
      * @Date: 2018/12/25 15:52
      * @since: v1.0
-     */
+     *//*
     public static Map<String, Object> encryptStr(String message) {
         try {
             Map<String, Object> resultMap = new HashMap<>();
@@ -118,7 +117,7 @@ public class AESRSAUtil {
         String paramPhoneString = objectMapper.writeValueAsString(loanApplyConditionVo);
 
         Map<String, Object> map = encryptStr(paramPhoneString);
-    }
+    }*/
 
 /*Map<String, String> paramPhoneMap = new HashMap<>();
         paramPhoneMap.put("applyTimeStart", string1);
