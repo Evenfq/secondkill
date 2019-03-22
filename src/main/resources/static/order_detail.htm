@@ -81,7 +81,9 @@ $(function(){
 })
 
 function getOrderDetail(){
+    console.log("getOrderDetail");
 	var orderId = g_getQueryString("orderId");
+    console.log(orderId);
 	$.ajax({
 		url:"/order/detail",
 		type:"GET",
@@ -89,7 +91,7 @@ function getOrderDetail(){
 			orderId:orderId
 		},
 		success:function(data){
-			if(data.code == 0){
+			if(data.code == 500000){
 				render(data.data);
 			}else{
 				layer.msg(data.msg);

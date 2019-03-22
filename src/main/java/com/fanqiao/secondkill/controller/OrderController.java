@@ -10,6 +10,7 @@ import com.fanqiao.secondkill.service.OrderService;
 import com.fanqiao.secondkill.service.SecondkillService;
 import com.fanqiao.secondkill.vo.GoodsVo;
 import com.fanqiao.secondkill.vo.OrderDetailVo;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@Log4j2
 @RequestMapping("/order")
 public class OrderController {
 
@@ -37,6 +39,8 @@ public class OrderController {
     @ResponseBody
     public Result<OrderDetailVo> info(Model model, SecondkillUser user,
 									  @RequestParam("orderId") long orderId) {
+
+        log.info("orderId {}", orderId);
     	if(user == null) {
     		return Result.error(CodeMessage.USER_NOT_LOGIN);
     	}

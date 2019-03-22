@@ -5,6 +5,7 @@ import com.fanqiao.secondkill.entity.OrderInfo;
 import com.fanqiao.secondkill.entity.SecondkillOrder;
 import com.fanqiao.secondkill.entity.SecondkillUser;
 import com.fanqiao.secondkill.vo.GoodsVo;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 @Service
+@Log4j2
 public class OrderService {
 	
 	@Autowired
@@ -39,6 +41,7 @@ public class OrderService {
 		secondkillOrder.setOrderId(orderId);
 		secondkillOrder.setUserId(user.getId());
 		orderInfoDao.insertSecondkillOrder(secondkillOrder);
+		log.info("orderInfo {}", orderInfo.getId());
 		return orderInfo;
 	}
 

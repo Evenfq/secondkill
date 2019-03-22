@@ -11,7 +11,7 @@ public interface OrderInfoDao {
     public SecondkillOrder getSecondkillOrderByUserIdGoodsId(@Param("userId")long userId, @Param("goodsId")long goodsId);
 
     @Select("select * from order_info where id = #{orderId}")
-    public OrderInfo getOrderById(@Param("goodsId")long goodsId);
+    public OrderInfo getOrderById(@Param("orderId")long orderId);
 
     @Insert("insert into order_info(user_id, goods_id, goods_name, goods_count, goods_price, order_channel, status, create_date)values("
             + "#{userId}, #{goodsId}, #{goodsName}, #{goodsCount}, #{goodsPrice}, #{orderChannel},#{status},#{createDate} )")
