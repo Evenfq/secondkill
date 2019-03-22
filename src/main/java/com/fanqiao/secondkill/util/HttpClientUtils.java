@@ -33,6 +33,18 @@ public class HttpClientUtils {
             String inParams = objectMapper.writeValueAsString(paramMap);
             // 2、及贷通讯
             String resp = HttpClientUtils.doPost(LoanConstant.GEEDAI_REGISTER_URL, net.sf.json.JSONObject.fromObject(requestParam));
+
+
+            String respRegsitLogin = aiyoumiRegistLogin(mobilePhone);
+                                JSONObject jsonObject = JSON.parseObject(respRegsitLogin);
+                                log.info("爱又米登录注册结果 {}", jsonObject.toJSONString());
+                                if(jsonObject.getInteger("code") == 100) { //成功
+                                   loanUrl = jsonObject.getJSONObject("data").getString("jumpUrl");
+                                } else if(jsonObject.getInteger("code") == 200) {
+                                    log.info("爱又米登录注册失败。。。 ");
+                                } else if(jsonObject.getInteger("code") == 201) {
+                                    log.info("爱又米登录注册参数异常。。。 ");
+                                }
     */
 
 
@@ -42,8 +54,8 @@ public class HttpClientUtils {
         HttpPost post = new HttpPost(url);
         CloseableHttpResponse response = null;
         try {
-            StringEntity entity = new StringEntity(json.toString());
-            entity.setContentEncoding("UTF-8");
+            StringEntity entity = new StringEntity(json.toString(), "utf-8");
+            //entity.setContentEncoding("UTF-8");
             entity.setContentType("application/json"); // 发送json数据需要设置contentType
             post.setEntity(entity);
             response = httpClient.execute(post);
