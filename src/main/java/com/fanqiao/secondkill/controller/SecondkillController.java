@@ -64,20 +64,21 @@ public class SecondkillController {
     @ResponseBody
     public Result doSecondkill(Model model, SecondkillUser user,
                                @RequestParam("goodsId")long goodsId) {
-        model.addAttribute("user", user);
         if(user == null) {
-            return new Result(CodeMessage.USER_NOT_LOGIN.getMessage());
+            return Result.message(CodeMessage.USER_NOT_LOGIN);
         }
+
+        model.addAttribute("user", user);
         //判断库存
         GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
         int stock = goods.getStockCount();
         if(stock <= 0) {
-            return new Result(CodeMessage.REPERTORY_EMPTY.getMessage());
+            return Result.message(CodeMessage.REPERTORY_EMPTY);
         }
         //判断是否已经秒杀到了
         SecondkillOrder order = orderService.getSecondkillOrderByUserIdGoodsId(user.getId(), goodsId);
         if(order != null) {
-            return new Result(CodeMessage.SECONDKILL_REPEAT.getMessage());
+            return Result.message(CodeMessage.SECONDKILL_REPEAT);
         }
         //减库存 下订单 写入秒杀订单
         OrderInfo orderInfo = secondkillService.miaosha(user, goods);

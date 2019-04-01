@@ -4,6 +4,8 @@ import com.fanqiao.secondkill.dao.OrderInfoDao;
 import com.fanqiao.secondkill.entity.OrderInfo;
 import com.fanqiao.secondkill.entity.SecondkillOrder;
 import com.fanqiao.secondkill.entity.SecondkillUser;
+import com.fanqiao.secondkill.redis.OrderKey;
+import com.fanqiao.secondkill.redis.RedisService;
 import com.fanqiao.secondkill.vo.GoodsVo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,14 @@ public class OrderService {
 	
 	@Autowired
 	private OrderInfoDao orderInfoDao;
+
+	@Autowired
+	private RedisService redisService;
 	
 	public SecondkillOrder getSecondkillOrderByUserIdGoodsId(long userId, long goodsId) {
-		return orderInfoDao.getSecondkillOrderByUserIdGoodsId(userId, goodsId);
+		return redisService.get(OrderKey.getMiaoshaOrderByUidGid, userId + "_" + goodsId, SecondkillOrder.class);
+		//return orderInfoDao.getSecondkillOrderByUserIdGoodsId(userId, goodsId);
+
 	}
 
 	@Transactional
@@ -41,6 +48,9 @@ public class OrderService {
 		secondkillOrder.setOrderId(orderId);
 		secondkillOrder.setUserId(user.getId());
 		orderInfoDao.insertSecondkillOrder(secondkillOrder);
+
+		redisService.set(OrderKey.getMiaoshaOrderByUidGid, user.getId() + "_" + goods.getId(), secondkillOrder);
+
 		log.info("orderInfo {}", orderInfo.getId());
 		return orderInfo;
 	}
