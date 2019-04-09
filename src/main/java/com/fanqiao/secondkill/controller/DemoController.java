@@ -1,6 +1,7 @@
 package com.fanqiao.secondkill.controller;
 
 import com.fanqiao.secondkill.entity.Demo;
+import com.fanqiao.secondkill.rabbitmq.MQSender;
 import com.fanqiao.secondkill.redis.RedisService;
 import com.fanqiao.secondkill.redis.UserKey;
 import com.fanqiao.secondkill.result.Result;
@@ -11,10 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Controller //如果要返回页面使用@Controller  @RestController 则Controller中的方法无法返回jsp页面，或者html
 @RequestMapping("/demo")
@@ -26,6 +24,8 @@ public class DemoController {
     private DemoService demoService;
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private MQSender mqSender;
 
     /*@RequestMapping("/")
     @ResponseBody
@@ -69,5 +69,13 @@ public class DemoController {
         boolean rst = redisService.set(UserKey.getById, key, value);
         String str = redisService.get(UserKey.getById, key, String.class);
         return new Result(str);
+    }
+
+    @PostMapping("/mq")
+    @ResponseBody
+    public Result<String> send() {
+        mqSender.send("Hello MQ");
+        log.info("Hello MQ");
+        return Result.success("success");
     }
 }
