@@ -78,4 +78,28 @@ public class DemoController {
         log.info("Hello MQ");
         return Result.success("success");
     }
+
+    @PostMapping("/topicMQ")
+    @ResponseBody
+    public Result<String> send2() {
+        mqSender.sendTopic("Hello MQ");
+        log.info("Hello MQ");
+        return Result.success("success");
+    }
+
+    @PostMapping("/fanoutMQ")
+    @ResponseBody
+    public Result<String> send3() {
+        mqSender.sendFanout("Hello MQ");
+        log.info("Hello MQ");
+        return Result.success("success");
+    }
+
+    @PostMapping("/headerMQ")
+    @ResponseBody
+    public Result<String> send4() {
+        mqSender.sendHeaders("Hello header MQ");
+        log.info("Hello header MQ");
+        return Result.success("success");
+    }
 }
