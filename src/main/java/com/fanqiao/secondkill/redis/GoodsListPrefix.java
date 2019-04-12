@@ -11,5 +11,6 @@ public class GoodsListPrefix extends BasePrefix {
 
     public static GoodsListPrefix getGoodsList = new GoodsListPrefix(seconds, "GoodsList");
     public static GoodsListPrefix getGoodsDetail = new GoodsListPrefix(seconds, "GoodsDetail");
+    public static GoodsListPrefix getGoodsStock = new GoodsListPrefix(0, "GoodsStock");
 
 }

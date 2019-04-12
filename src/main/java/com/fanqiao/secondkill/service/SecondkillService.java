@@ -20,8 +20,12 @@ public class SecondkillService {
 	@Transactional
 	public OrderInfo miaosha(SecondkillUser user, GoodsVo goods) {
 		//减库存 下订单 写入秒杀订单
-		goodsService.reduceStock(goods);
-		return orderService.createOrder(user, goods);
+		boolean success = goodsService.reduceStock(goods);
+		if(success) {
+			return orderService.createOrder(user, goods);
+		} else {
+			return null;
+		}
 	}
 	
 }

@@ -82,7 +82,7 @@ public class RedisService {
         }
     }
 
-    public <T> Long decr(KeyPrefix keyPrefix, String key, T value) {
+    public <T> Long decr(KeyPrefix keyPrefix, String key) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();

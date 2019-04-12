@@ -1,6 +1,7 @@
 package com.fanqiao.secondkill.rabbitmq;
 
 import com.fanqiao.secondkill.redis.RedisService;
+import com.fanqiao.secondkill.vo.SecondkillMessage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
@@ -54,5 +55,15 @@ public class MQSender {
         messageProperties.setHeader("header2", "value2");
         Message msg =  new Message(stringMessage.getBytes(), messageProperties);
         amqpTemplate.convertAndSend(MQConfig.HEADERS_EXCHANGE, "", msg);
+    }
+
+
+    /**
+     * 发送秒杀订单信息到rabbitmq
+     */
+    public void sendSecondkill(SecondkillMessage message) {
+        String stringMessage = RedisService.beanToString(message);
+        log.info("sendHeaders {}", stringMessage);
+        amqpTemplate.convertAndSend(MQConfig.SECONDKILL_QUEUE, stringMessage);
     }
 }

@@ -26,8 +26,6 @@ public class OrderService {
 	
 	public SecondkillOrder getSecondkillOrderByUserIdGoodsId(long userId, long goodsId) {
 		return redisService.get(OrderKey.getMiaoshaOrderByUidGid, userId + "_" + goodsId, SecondkillOrder.class);
-		//return orderInfoDao.getSecondkillOrderByUserIdGoodsId(userId, goodsId);
-
 	}
 
 	@Transactional
@@ -42,10 +40,10 @@ public class OrderService {
 		orderInfo.setOrderChannel(new Byte("1"));
 		orderInfo.setStatus(new Byte("0"));
 		orderInfo.setUserId(user.getId());
-		long orderId = orderInfoDao.insert(orderInfo);
+		orderInfoDao.insert(orderInfo);
 		SecondkillOrder secondkillOrder = new SecondkillOrder();
 		secondkillOrder.setGoodsId(goods.getId());
-		secondkillOrder.setOrderId(orderId);
+		secondkillOrder.setOrderId(orderInfo.getId());
 		secondkillOrder.setUserId(user.getId());
 		orderInfoDao.insertSecondkillOrder(secondkillOrder);
 

@@ -14,6 +14,7 @@ public class MQConfig {
     public static final String TOPIC_QUEUE1 = "topic.queue1";
     public static final String TOPIC_QUEUE2 = "topic.queue2";
     public static final String HEADERS_QUEUE = "headers.queue";
+    public static final String SECONDKILL_QUEUE = "secondkill.queue";
     public static final String TOPIC_EXCHANGE = "topic.exchange";
     public static final String FANOUT_EXCHANGE = "fanout.exchange";
     public static final String HEADERS_EXCHANGE = "headers.exchange";
@@ -82,4 +83,9 @@ public class MQConfig {
         return BindingBuilder.bind(headersQueue()).to(headersExchange()).whereAll(map).match();
     }
 
+
+    @Bean
+    public Queue secondkillQueue() {
+        return new Queue(SECONDKILL_QUEUE, true);
+    }
 }
